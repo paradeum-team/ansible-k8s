@@ -1,0 +1,32 @@
+- name: update zonetime
+  shell: restorecon -Rv /etc && timedatectl set-local-rtc 0 && timedatectl set-timezone Asia/Shanghai
+  tags: chronyd
+
+- name: disable ntpd service
+  service: name=ntpd enabled=no state=stopped
+  ignore_errors: yes
+  tags: chronyd
+
+- name: install chrony
+  yum: name=chrony state=latest
+  tags: chronyd
+
+- name: overwrite server /etc/chrony.conf
+  template: src=chrony.server.conf.j2 dest=/etc/chrony.conf owner=root group=root mode=644
+  when: "'master' in inventory_hostname"
+  notify: restart chronyd
+  tags: chronyd
+
+- name: overwrite client /etc/chrony.conf
+  template: src=chrony.client.conf.j2 dest=/etc/chrony.conf owner=root group=root mode=644
+  when: "'master' not in inventory_hostname"
+  notify: restart chronyd
+  tags: chronyd
+
+- name: enable chronyd service
+  service: name=chronyd enabled=yes state=started
+  tags: chronyd
+
+- name: add sync hard to crontab
+  cron: minute="30" name="sync time" job="/usr/sbin/hwclock --systohc"
+  tags: chronyd

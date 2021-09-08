@@ -1,0 +1,31 @@
+- name: Install docker ce
+  yum:
+    name: 
+      - docker-ce
+      - device-mapper-persistent-data
+      - lvm2
+      - containerd.io
+      - docker-ce
+      - docker-ce-cli
+  tags: docker
+
+- name: Create /etc/docker directory 
+  file:
+    path: /etc/docker
+    state: directory
+
+- name: Override docker daemon config file
+  template: src=daemon.json.j2 dest=/etc/docker/daemon.json  owner=root group=root mode=644 backup=yes
+  notify: restart docker
+  tags: docker
+
+- name: Enable service docker and start
+  service:
+    name: docker
+    enabled: yes
+    state: started
+  tags: docker
+
+- name: check docker
+  command: systemctl is-active docker.service
+  tags: docker

@@ -1,0 +1,3 @@
+---
+# tasks file for k8s-join-command
+- include: joinCommand.yml

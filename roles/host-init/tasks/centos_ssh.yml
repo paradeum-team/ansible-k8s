@@ -1,0 +1,5 @@
+---
+- name: SSH desible UseDNS
+  action: lineinfile dest=/etc/ssh/sshd_config regexp="^UseDNS" line="UseDNS no" state=present
+  notify: restart sshd
+  tags: centos_ssh

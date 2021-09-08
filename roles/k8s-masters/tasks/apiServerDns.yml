@@ -1,0 +1,24 @@
+---
+- name: Resolve offline registry domain
+  lineinfile:
+    path: "/etc/hosts"
+    regexp: '.*{{ registry_domain }}'
+    line: "{{ hostvars[ groups['install'][0] ].ansible_host }}  {{ registry_domain }}"
+    state: present
+  when: is_offline
+
+- name: Resolve api server domain to the first master ansible_host
+  lineinfile:
+    path: "/etc/hosts"
+    regexp: '.*{{ api_server_domain }}'
+    line: "{{ hostvars[ groups['masters'][0] ].ansible_host }}  {{ api_server_domain }}"
+    state: present
+  when: advertise_address is not defined
+
+- name: Resolve api server domain to the first master advertise_address
+  lineinfile:
+    path: "/etc/hosts"
+    regexp: '.*{{ api_server_domain }}'
+    line: "{{ hostvars[ groups['masters'][0] ].advertise_address }}  {{ api_server_domain }}"
+    state: present
+  when: advertise_address is defined

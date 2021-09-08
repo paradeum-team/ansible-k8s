@@ -1,0 +1,12 @@
+---
+# Add or modify nofile soft limit for the user *
+- pam_limits: domain=* limit_type=- limit_item=nofile value=65535
+
+# Add or modify fsize hard limit for the user *. Keep or set the maximal value.
+- pam_limits: domain=* limit_type=- limit_item=fsize value=unlimited use_max=yes
+
+# Add or modify memlock, both soft and hard, limit for the user james with a comment.
+#- pam_limits: domain=* limit_type=- limit_item=memlock value=unlimited comment="unlimited memory lock for *"
+
+- pam_limits: domain=* limit_type=- limit_item=nproc value=65535 comment="unlimited nproc for *"
+  tags: limits

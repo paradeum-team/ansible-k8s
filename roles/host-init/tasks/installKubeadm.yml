@@ -1,0 +1,24 @@
+- name: Install kubeadm kubelet kubectl
+  yum:
+    name:
+      - kubelet-{{k8s_version}}
+      - kubeadm-{{k8s_version}}
+      - kubectl-{{k8s_version}}
+      - bash-completion
+  tags: kubeadm
+
+- name: Kubectl completion bash
+  shell: "kubectl completion bash >/etc/bash_completion.d/kubectl"
+  tags: kubeadm
+
+- name: config kubelet
+  template: src=kubelet.j2 dest=/etc/sysconfig/kubelet  owner=root group=root mode=644 backup=yes
+  notify: restart kubelet
+  tags: kubeadm
+
+- name: Enable service kubelet and start
+  service:
+    name: kubelet
+    enabled: yes
+    state: started
+  tags: kubelet

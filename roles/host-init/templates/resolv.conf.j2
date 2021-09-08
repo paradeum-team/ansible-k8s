@@ -1,0 +1,3 @@
+options timeout:2 attempts:3 rotate single-request-reopen
+search svc.cluster.local cluster.local
+nameserver {{ansible_default_ipv4.address}}

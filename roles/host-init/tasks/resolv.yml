@@ -1,0 +1,11 @@
+- name: resolv.conf change immutable
+  file: path=/etc/resolv.conf attr=-i
+  tags: dns
+
+- name: config resolv.conf
+  template: src=resolv.conf.j2 dest=/etc/resolv.conf mode=0644 backup=yes
+  tags: dns
+
+- name: resolv.conf change immutable
+  file: path=/etc/resolv.conf attr=+i
+  tags: dns

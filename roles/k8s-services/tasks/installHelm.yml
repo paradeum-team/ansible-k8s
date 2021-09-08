@@ -1,0 +1,37 @@
+---
+- name: check helm is installed
+  command: helm version
+  register: check_helm_ret
+  ignore_errors: True
+  tags: helm
+
+- name: create tmp helm directory
+  file: path=/tmp/helm.{{helm_binary_md5}} state=directory
+  when: check_helm_ret.rc == 2
+  tags: helm
+
+- name: download helm 
+  get_url:
+    url: "{{helm_binary_url}}"
+    dest: /tmp/helm.{{helm_binary_md5}}/helm.tar.gz
+    checksum: md5:{{helm_binary_md5}}
+  when: check_helm_ret.rc == 2
+  tags: helm
+
+- name: Unarchive helm
+  unarchive:
+    src: /tmp/helm.{{helm_binary_md5}}/helm.tar.gz
+    dest: /tmp/helm.{{helm_binary_md5}}/
+    remote_src: yes
+  when: check_helm_ret.rc == 2
+  tags: helm
+
+- name: install helm
+  shell: mv /tmp/helm.{{helm_binary_md5}}/linux-amd64/helm /usr/local/bin/helm; rm -rf /tmp/helm.{{helm_binary_md5}}
+  when: check_helm_ret.rc == 2
+  tags: helm
+
+- name: add helm private repo
+  command: helm repo add  {{helm_repo_name}} {{helm_repo}} --username {{helm_username}} --password  {{helm_password}} --insecure-skip-tls-verify
+  tags: helm
+  

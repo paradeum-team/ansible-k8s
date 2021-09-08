@@ -1,0 +1,43 @@
+- name: backup yum repos
+  shell: mkdir -p /etc/yum.repos.d/bak && \mv -f /etc/yum.repos.d/*.repo /etc/yum.repos.d/bak/
+  tags: yumrepo
+  when: is_offline
+
+- name: install offline k8s base repo
+  template: src=offline-k8s.base.repo.j2 dest=/etc/yum.repos.d/offline-k8s.base.repo owner=root group=root mode=644
+  tags: yumrepo
+  when: is_offline
+
+- name: install online repos 
+  copy: src=./ dest=/etc/yum.repos.d/ owner=root group=root mode=644
+  tags: yumrepo
+  when: is_offline == False
+
+- name: clean yumrepo cache
+  command: yum clean all
+  ignore_errors: yes
+  tags: yumrepo
+
+- name: Install base tools
+  yum:
+    name: 
+      - wget
+      - net-tools
+      - bind-utils
+      - bash-completion
+      - yum-utils
+      - telnet
+      - curl
+      - lrzsz
+      - jq
+      - perf
+      - strace 
+      - vim 
+      - iotop
+      - dnsmasq
+  tags: install-base-tools
+
+- name: yum update
+  command: yum update -y
+  tags: yum-update
+  when: is_system_update 

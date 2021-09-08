@@ -1,0 +1,10 @@
+- name: overwrite /etc/sysctl.conf
+  template: src=99-kubernetes-cri.conf.j2 dest=/etc/sysctl.d/99-kubernetes-cri.conf owner=root group=root mode=644
+  tags: sysctl
+  register: result
+
+- name: reload sysctl
+  shell: sysctl -p --system
+  ignore_errors: yes
+  tags: sysctl
+  when: result.changed

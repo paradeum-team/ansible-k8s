@@ -1,0 +1,3 @@
+---
+# tasks file for localhost-init
+- include: dnsmasq.yml

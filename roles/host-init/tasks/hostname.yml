@@ -1,0 +1,20 @@
+- name: inventory name to hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+  tags: set-hostname
+
+- name: Ensure hostname is in /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: "^{{ ansible_host }}[ \t]*{{ ansible_hostname }}[ \t]*{{ inventory_hostname }}[ \t]*"
+    line: "{{ ansible_host }} {{ ansible_hostname }} {{ inventory_hostname }}"
+  tags: set-hostname
+  when: advertise_address is not defined
+
+- name: Ensure hostname is in /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: "^{{ advertise_address }}[ \t]*{{ ansible_hostname }}[ \t]*{{ inventory_hostname }}[ \t]*"
+    line: "{{ advertise_address }} {{ ansible_hostname }} {{ inventory_hostname }}"
+  tags: set-hostname
+  when: advertise_address is defined

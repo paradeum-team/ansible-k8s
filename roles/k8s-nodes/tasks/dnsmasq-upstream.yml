@@ -1,0 +1,16 @@
+- name: config dnsmasq kube-dns.conf
+  template: src=kube-dns.conf.j2 dest=/etc/dnsmasq.d/kube-dns.conf mode=0644
+  notify: restart dnsmasq
+  tags: dns
+
+- name: config dnsmasq upstream dns
+  template: src=upstream-dns.conf.j2 dest=/etc/dnsmasq.d/upstream-dns.conf mode=0644
+  notify: restart dnsmasq
+  tags: dns
+
+- name: Enable service dnsmasq and start
+  service:
+    name: dnsmasq
+    enabled: yes
+    state: restarted
+  tags: dns

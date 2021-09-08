@@ -1,0 +1,44 @@
+- name: check api-serve is running
+  shell: ss -lntp|grep kube-apiserver
+  register: check_ret
+  ignore_errors: True
+  tags: joinControlPlane
+
+- debug:
+    msg: "{{check_ret}}"
+  tags: joinControlPlane
+
+- name: get discovery token ca cert hash
+  script: get_discovery_token_ca_cert_hash.sh
+  register: discovery_token_ca_cert_hash
+  when: hostvars[ groups['masters'][0] ].inventory_hostname == inventory_hostname
+  tags: joinControlPlane
+
+- name: kubeadm certs certificate-key
+  shell: kubeadm init phase upload-certs --upload-certs|tail -1
+  register: certs_ret
+  when: hostvars[ groups['masters'][0] ].inventory_hostname == inventory_hostname
+  tags: joinControlPlane
+
+- name: create var join_control_command
+  shell: echo "kubeadm join {{api_server_domain}}:{{api_server_port}} --token abcdef.0123456789abcdef --discovery-token-ca-cert-hash sha256:{{hostvars[ groups['masters'][0] ].discovery_token_ca_cert_hash.stdout|trim}} --control-plane --certificate-key {{hostvars[ groups['masters'][0] ].certs_ret.stdout|trim}}"
+  when: check_ret.rc == 1 and hostvars[ groups['masters'][0] ].inventory_hostname != inventory_hostname 
+  register: join_control_command
+
+- name: join control plane
+  shell: "{{join_control_command.stdout|trim}} "
+  when: check_ret.rc == 1 and hostvars[ groups['masters'][0] ].inventory_hostname != inventory_hostname and advertise_address is not defined 
+  tags: joinControlPlane
+
+- name: join control plane apiserver-advertise-addres
+  shell: "{{join_control_command.stdout|trim}} --apiserver-advertise-address={{ advertise_address }}"
+  when: check_ret.rc == 1 and hostvars[ groups['masters'][0] ].inventory_hostname != inventory_hostname and advertise_address is defined 
+  tags: joinControlPlane
+
+- name: Resolve api server domain to local master
+  lineinfile:
+    path: "/etc/hosts"
+    regexp: '.*{{ api_server_domain }}'
+    line: "{{ ansible_host }}  {{ api_server_domain }}"
+    state: present
+  tags: joinControlPlane

@@ -1,0 +1,6 @@
+---
+# tasks file for k8s-nodes
+
+- include: joinNode.yml
+- include: dnsmasq-upstream.yml
+  when: public_network_node == False

@@ -1,0 +1,4 @@
+---
+# tasks file for k8s-services
+- include: installHelm.yml
+  when: hostvars[ groups['masters'][0] ].inventory_hostname == inventory_hostname

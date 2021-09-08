@@ -1,0 +1,25 @@
+- name: check api-serve is running
+  command: kubectl get svc kube-dns -n kube-system -o jsonpath='{.spec.clusterIP}'
+  register: kube_dns_cluster_ip
+  when: hostvars[ groups['masters'][0] ].inventory_hostname == inventory_hostname
+  tags: kube-dns
+
+- name: config dnsmasq kube dns upstream
+  lineinfile:
+    path: "/etc/dnsmasq.d/upstream-dns.conf"
+    regexp: 'server=/cluster.local/.*'
+    line: "server=/cluster.local/{{ hostvars[ groups['masters'][0] ].kube_dns_cluster_ip.stdout|trim }}"
+    state: present
+  notify: restart dnsmasq
+  tags: kube-dns
+
+- name: sync coredns config
+  template: src=coredns-config.yml.j2 dest=$HOME/k8s_config/coredns-config.yml  owner=root group=root mode=644
+  when: hostvars[ groups['masters'][0] ].inventory_hostname == inventory_hostname
+  tags: kube-dns
+
+- name: apply coredns config mqp
+  command: kubectl apply -f $HOME/k8s_config/coredns-config.yml
+  when: hostvars[ groups['masters'][0] ].inventory_hostname == inventory_hostname
+  notify: restart coredns
+  tags: kube-dns

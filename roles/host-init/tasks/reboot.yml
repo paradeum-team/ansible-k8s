@@ -1,0 +1,10 @@
+- name: Reboot except for the install machine
+  reboot:
+    pre_reboot_delay: 0
+  when: inventory_hostname not in groups['install']
+  tags: reboot
+- name: Reboot install machine
+  reboot:
+    pre_reboot_delay: 0
+  when: inventory_hostname in groups['install']
+  tags: reboot

@@ -1,0 +1,4 @@
+- name: Configure the public network card
+  template: src=ifcfg-pip.j2 dest=/etc/sysconfig/network-scripts/ifcfg-pip0 owner=root group=root mode=644
+  notify: restart network
+  tags: publicNetwork

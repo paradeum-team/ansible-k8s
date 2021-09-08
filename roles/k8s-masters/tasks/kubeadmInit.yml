@@ -1,0 +1,21 @@
+- name: check api-server is running
+  shell: ss -lntp|grep kube-apiserver
+  register: check_ret
+  ignore_errors: True
+  tags: joinControlPlane
+
+- name: create k8s_config directory
+  file: path=$HOME/k8s_config state=directory
+
+- name: create kubeadm-init.yaml
+  template: src=kubeadm-init.yaml.j2 dest=$HOME/k8s_config/kubeadm-init.yaml  owner=root group=root mode=644 backup=yes
+  tags: kubeadm_init
+  when: check_ret.rc == 1
+
+- name: kubeadm init
+  command: kubeadm init --config $HOME/k8s_config/kubeadm-init.yaml --upload-certs
+  when: check_ret.rc == 1
+
+- name: copy kubeconfig
+  shell: mkdir -p $HOME/.kube && cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && chown $(id -u):$(id -g) $HOME/.kube/config
+  when: check_ret.rc == 1

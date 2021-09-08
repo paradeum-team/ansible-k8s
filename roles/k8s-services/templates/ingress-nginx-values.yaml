@@ -1,0 +1,20 @@
+controller:
+  image:
+    repository: {{registry_repo}}/bitnami/nginx-ingress-controller
+    tag: 
+    digest: sha256:278ad67a8f9f2008d213c86c43c3f37f69ccdecfded91bf57aaab3e4cd6ebc58
+  admissionWebhooks:
+    patch:
+      image:
+        repository:  ${REGISTRY}/jettech/kube-webhook-certgen
+  kind: DaemonSet
+  tolerations:
+    - effect: NoSchedule
+      operator: Exists
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.kubernetes.io/master
+            operator: Exists

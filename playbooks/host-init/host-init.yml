@@ -1,0 +1,6 @@
+---
+- hosts: '{{ exec_hosts }}'
+#  gather_facts: False
+  become: yes
+  roles:
+    - host-init

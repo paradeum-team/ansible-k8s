@@ -1,0 +1,9 @@
+---
+# handlers file for k8s-masters
+
+- name: restart dnsmasq
+  service: name=dnsmasq state=restarted
+  become: yes
+
+- name: restart coredns
+  shell: "kubectl rollout restart deploy coredns -n kube-system"

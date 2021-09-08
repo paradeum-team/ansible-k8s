@@ -1,0 +1,17 @@
+- name: Resolve api server domain master_vip to nodes
+  lineinfile:
+    path: "/etc/hosts"
+    regexp: '.*{{ api_server_domain }}'
+    line: "{{ master_vip }}  {{ api_server_domain }}"
+    state: present
+  when: public_network_node == False
+  tags: resolve-api-server
+
+- name: Resolve api server domain master_vip_adverties_address to nodes
+  lineinfile:
+    path: "/etc/hosts"
+    regexp: '.*{{ api_server_domain }}'
+    line: "{{ master_vip_advertise_address }}  {{ api_server_domain }}"
+    state: present
+  when: public_network_node == True 
+  tags: resolve-api-server

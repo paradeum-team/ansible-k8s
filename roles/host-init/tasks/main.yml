@@ -1,0 +1,25 @@
+---
+# tasks file for host-init
+
+##########
+# CentOS #
+# ########
+- include: yum.yml
+- include: selinux.yml
+- include: ulimit.yml
+- include: sysctl.yml
+- include: swap.yml
+- include: centos_ssh.yml
+- include: chronyd.yml
+  when: chronyd_install
+- include: hostname.yml
+- include: docker.yml
+- include: ipvs.yml
+- include: installKubeadm.yml
+- include: apiServerDns.yml
+- include: resolv.yml
+  when: public_network_node == False
+- include: publicInterface.yml
+  when: public_network_node == True
+- include: reboot.yml
+  when: is_system_update

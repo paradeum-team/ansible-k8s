@@ -1,0 +1,5 @@
+- name: generate join node command 
+  command: kubeadm token create --print-join-command
+  register: join_command
+  tags:
+    - join-command

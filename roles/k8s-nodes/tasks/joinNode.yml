@@ -1,0 +1,15 @@
+- name: check node is installed
+  stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: check_kubelet_conf
+  tags: join-node
+
+- name: join k8s nodes
+  command: "{{hostvars[ groups['masters'][0] ].join_command.stdout}}"
+  when: check_kubelet_conf.stat.exists == False and public_network_node == False
+  tags: join-node
+
+- name: join k8s nodes use apiserver-advertise-address
+  command: "{{hostvars[ groups['masters'][0] ].join_command.stdout}} --apiserver-advertise-address={{advertise_address}}"
+  when: check_kubelet_conf.stat.exists == False and public_network_node == True
+  tags: join-node

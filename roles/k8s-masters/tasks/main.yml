@@ -1,0 +1,11 @@
+---
+# tasks file for k8s-masters
+
+- include: dnsmasq-upstream.yml
+- include: apiServerDns.yml
+- include: kubeadmInit.yml
+  when: hostvars[ groups['masters'][0] ].inventory_hostname == inventory_hostname
+- include: joinControlPlane.yml
+- include: kube-flannel.yml
+  when: hostvars[ groups['masters'][0] ].inventory_hostname == inventory_hostname and flannel_enable == True
+- include: kubedns.yml

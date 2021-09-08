@@ -1,0 +1,39 @@
+#!/bin/bash
+set -x
+
+# 当前ansible-k8s目录所在路径,默认一般情况下不需要改动，如有变动请根据实际情况修改
+BASE_DIR="/data/ansible-k8s"
+
+# local network card
+LOCAL_ENNAME=eth0 ## Need to check
+
+# 是否线下安装
+is_offline=False
+
+# 负载均衡 IP
+master_vip="172.26.181.239"
+
+# 主机环境实际使用的上游dns server，酌情修改,公司内部实际使用的dns服务ip地址,poc建议为空（公司测试环境不建议配置，因为配置后所有节点就都可以访问外网，>有可能影响线>下包测试的准确性）
+upstream_dns_ips="172.26.164.91"
+
+# 是否安装时间同步服务(chronyd),True表示安装，False表示不安装，默认True，只有已经安装了 ntp 时间同步服务的情况下不安装;
+chronyd_install="True"
+# chronyd_install=True 时才生效,定义外部 ntp_server, ntp.cloud.aliyuncs.com 为阿里云内部 ntp 同步 server,  非阿里云主机访问可以改为 ntp.aliyun.com, 或自定义的 ntp server
+ntp_server="ntp.cloud.aliyuncs.com"
+
+export LOCAL_IP=`ip a show $LOCAL_ENNAME|awk '/inet.*brd.*'$LOCAL_ENNAME'/{print $2}'|awk -F "/" '{print $1}'`  # 无需改动
+if [ -z "$LOCAL_IP" ];then
+        echo "get $LOCAL_ENNAME ip error!" && exit 1
+fi
+
+# yum repo && config server
+export CONFIGSERVER_IP="$LOCAL_IP"
+export CONFIGSERVER_PORT="8081"
+
+
+# 高可用部署开关,True为部署高可用版，False为单机版一般无需改动
+if [ `$BASE_DIR/read-ansible-hosts.py -k masters|wc -l` -gt 1 ] ;then
+	HA="True"
+else
+	HA="False"
+fi
