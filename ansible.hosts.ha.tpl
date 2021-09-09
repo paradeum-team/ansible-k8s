@@ -31,7 +31,7 @@ api_server_domain="api-server.{{node_domain}}"
 api_server_port="6443"
 
 # k8s 版本
-k8s_version=1.21.6
+k8s_version=1.21.4
 # 定义外部镜像仓库
 registry_domain=docker.io
 registry_repo="{{registry_domain}}"
