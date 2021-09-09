@@ -23,8 +23,8 @@ public_network_node = True
 flannel_enable=True
 
 # api server 域名
-master_vip="172.26.181.239"
-master_vip_advertise_address="x.x.x.x"
+master_vip="172.26.117.104"
+master_vip_advertise_address="8.142.71.35"
 node_domain=solarfs.k8s
 install_domain=install.{{node_domain}}
 api_server_domain="api-server.{{node_domain}}"
@@ -33,10 +33,10 @@ api_server_port="6443"
 # k8s 版本
 k8s_version=1.21.6
 # 定义外部镜像仓库
-registry_domain=docker.io
-registry_repo="{{registry_domain}}"
+registry_domain=registry.hisun.netwarps.com
+registry_repo="{{registry_domain}}" 
 kubeadm_registry_repo="registry.cn-hangzhou.aliyuncs.com"
-coredns_image_repo="{{registry_repo}}/coredns"
+coredns_image_repo="docker.io/coredns"
 coredns_image_tag="1.8.4"
 flannel_image_repo="quay.io"
 flannel_image_tag="v0.14.0"
@@ -46,20 +46,16 @@ service_subnet=10.96.0.0/12
 pod_subnet=10.128.0.0/16
 
 # helm
-helm_binary_md5=e4500993ba21e5e6bdfbc084b4342025
-helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.6.0-linux-amd64.tar.gz
+helm_binary_md5=24b16800f8c7f44b5dd128e3355ecf1b
+helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.6.3-linux-amd64.tar.gz
 
 [install]
 master1.solarfs.k8s
 
 [masters]
-master1.solarfs.k8s ansible_host=172.26.181.236 advertise_address="x.x.x.x"
-master2.solarfs.k8s ansible_host=172.26.181.237 advertise_address="x.x.x.x"
-master3.solarfs.k8s ansible_host=172.26.181.238 advertise_address="x.x.x.x"
+master1.solarfs.k8s ansible_host=172.26.117.104 advertise_address="8.142.71.35"
 
 [nodes]
-node1.solarfs.k8s ansible_host=172.26.181.240 advertise_address="x.x.x.x"
-node2.solarfs.k8s ansible_host=x.x.x.x advertise_address="x.x.x.x"
+node1.solarfs.k8s ansible_host=8.142.71.142 advertise_address="8.142.71.142"
 
 [new_nodes]
-node3.solarfs.k8s ansible_host=x.x.x.x advertise_address="x.x.x.x"

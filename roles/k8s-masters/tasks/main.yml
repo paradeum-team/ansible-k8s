@@ -9,3 +9,4 @@
 - include: kube-flannel.yml
   when: hostvars[ groups['masters'][0] ].inventory_hostname == inventory_hostname and flannel_enable == True
 - include: kubedns.yml
+  when: public_network_node == False

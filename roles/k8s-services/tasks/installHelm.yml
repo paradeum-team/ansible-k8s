@@ -31,7 +31,8 @@
   when: check_helm_ret.rc == 2
   tags: helm
 
-- name: add helm private repo
-  command: helm repo add  {{helm_repo_name}} {{helm_repo}} --username {{helm_username}} --password  {{helm_password}} --insecure-skip-tls-verify
-  tags: helm
+#- name: add helm private repo
+#  command: helm repo add  {{helm_repo_name}} {{helm_repo}} --username {{helm_username}} --password  {{helm_password}} --insecure-skip-tls-verify
+#  when: helm_repo_install == False
+#  tags: helm
   
