@@ -25,8 +25,8 @@ controlPlaneEndpoint: {{api_server_domain}}:{{api_server_port}}
 controllerManager: {}
 dns:
   type: CoreDNS
-  #imageRepository: {{registry_repo}}
-  imageTag: 1.8.0
+  imageRepository: {{coredns_image_repo}}
+  imageTag: {{coredns_image_tag}}
 etcd:
   local:
     dataDir: /var/lib/etcd
@@ -34,9 +34,9 @@ etcd:
       listen-metrics-urls: http://0.0.0.0:2381
       listen-peer-urls: https://0.0.0.0:2380
       listen-client-urls: https://0.0.0.0:2379
-imageRepository: {{registry_repo}}/google_containers
+imageRepository: {{kubeadm_registry_repo}}/google_containers
 kind: ClusterConfiguration
-kubernetesVersion: 1.21.0
+kubernetesVersion: {{k8s_version}}
 networking:
   dnsDomain: cluster.local
   serviceSubnet: {{service_subnet}}

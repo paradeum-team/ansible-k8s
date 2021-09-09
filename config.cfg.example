@@ -10,9 +10,6 @@ LOCAL_ENNAME=eth0 ## Need to check
 # 是否线下安装
 is_offline=False
 
-# 负载均衡 IP
-master_vip="172.26.181.239"
-
 # 主机环境实际使用的上游dns server，酌情修改,公司内部实际使用的dns服务ip地址,poc建议为空（公司测试环境不建议配置，因为配置后所有节点就都可以访问外网，>有可能影响线>下包测试的准确性）
 upstream_dns_ips="172.26.164.91"
 
