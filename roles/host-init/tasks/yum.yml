@@ -36,8 +36,3 @@
       - iotop
       - dnsmasq
   tags: install-base-tools
-
-- name: yum update
-  command: yum update -y
-  tags: yum-update
-  when: is_system_update 

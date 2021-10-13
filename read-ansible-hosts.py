@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2
 # _*_ coding:utf-8 _*_
 __author__ = 'yhchen'
 

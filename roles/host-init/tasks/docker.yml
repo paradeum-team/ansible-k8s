@@ -1,3 +1,10 @@
+- name: uninstall podman
+  yum:
+    name:
+      - runc
+    state: absent 
+    autoremove: true
+
 - name: Install docker ce
   yum:
     name: 

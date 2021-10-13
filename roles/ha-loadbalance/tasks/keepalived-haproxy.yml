@@ -1,0 +1,60 @@
+---
+# copy keepalived conf
+- name: Create /etc/keepalived directory
+  file:
+    path: /etc/keepalived
+    state: directory
+  tags:
+    - keepalived
+    - ha-loadbalance
+
+- name: Override keepalived.conf
+  template: src=keepalived.conf.j2 dest=/etc/keepalived/keepalived.conf owner=root group=root mode=644 backup=yes
+  tags: 
+    - keepalived
+    - ha-loadbalance
+
+# copy check_apiserver.sh
+- name: Override check_apiserver.sh
+  template: src=check_apiserver.sh.j2 dest=/etc/keepalived/check_apiserver.sh owner=root group=root mode=755
+  tags:
+    - keepalived
+    - ha-loadbalance
+
+- name: Create /etc/kubernetes/manifests/ directory
+  file:
+    path: /etc/kubernetes/manifests/
+    state: directory
+  tags:
+    - keepalived
+    - haproxy
+    - ha-loadbalance
+
+# copy static pod keepalived.yaml
+- name: Override /etc/kubernetes/manifests/keepalived.yaml
+  template: src=keepalived.yaml.j2 dest=/etc/kubernetes/manifests/keepalived.yaml owner=root group=root mode=644 backup=yes
+  tags:
+    - keepalived
+    - ha-loadbalance
+
+# copy haproxy.cfg 
+- name: Create /etc/haproxy directory
+  file:
+    path: /etc/haproxy
+    state: directory
+  tags:
+    - haproxy
+    - ha-loadbalance
+
+- name: Override haproxy.cfg
+  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg owner=root group=root mode=644 backup=yes
+  tags:
+    - haproxy
+    - ha-loadbalance
+
+# copy static pod haproxy.yaml
+- name: Override /etc/kubernetes/manifests/haproxy.yaml
+  template: src=haproxy.yaml.j2 dest=/etc/kubernetes/manifests/haproxy.yaml owner=root group=root mode=644 backup=yes
+  tags:
+    - keepalived
+    - ha-loadbalance

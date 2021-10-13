@@ -1,0 +1,4 @@
+---
+# tasks file for ha-loadbalance
+- include: keepalived-haproxy.yml
+  when: keepalived_haproxy_enabled

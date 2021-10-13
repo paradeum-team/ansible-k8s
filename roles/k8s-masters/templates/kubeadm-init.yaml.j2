@@ -9,7 +9,11 @@ bootstrapTokens:
   - authentication
 kind: InitConfiguration
 localAPIEndpoint:
+{% if advertise_address is defined %}
   advertiseAddress: {{ advertise_address }}
+{% else %}
+  advertiseAddress: {{ ansible_host }}
+{% endif %}
   bindPort: 6443
 nodeRegistration:
   criSocket: /var/run/dockershim.sock
@@ -21,12 +25,18 @@ apiServer:
 apiVersion: kubeadm.k8s.io/v1beta2
 certificatesDir: /etc/kubernetes/pki
 clusterName: kubernetes
+{% if api_server_domain is defined %}
 controlPlaneEndpoint: {{api_server_domain}}:{{api_server_port}}
+{% endif %}
 controllerManager: {}
 dns:
   type: CoreDNS
+{% if coredns_image_repo is defined %}
   imageRepository: {{coredns_image_repo}}
+{% endif %}
+{% if coredns_image_tag is defined %}
   imageTag: {{coredns_image_tag}}
+{% endif %}
 etcd:
   local:
     dataDir: /var/lib/etcd

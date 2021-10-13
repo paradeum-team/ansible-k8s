@@ -5,7 +5,7 @@ BASE_DIR=$(cd `dirname $0` && pwd)
 cd $BASE_DIR
 
 . ../config.cfg
-
+. /etc/os-release
 
 # install ansible
 installAnsible(){
@@ -14,7 +14,10 @@ installAnsible(){
 	if [ "$is_offline" == "True" ];then
 		yum --disablerepo=\* --enablerepo=offline-k8s* install -y ansible pyOpenSSL
 	else
-		yum install -y ansible pyOpenSSL
+		yum install -y ansible
+                if [ "$version" == "7" ];then
+		  yum install -y pyOpenSSL
+		fi
 	fi
 	# 配置/etc/ansible/ansible.cfg
 	\cp -f ../ansible.cfg /etc/ansible/ansible.cfg

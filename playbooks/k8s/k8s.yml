@@ -4,11 +4,21 @@
   roles:
     - localhost-init
 
+- hosts: 'masters[0]'
+  become: yes
+  roles:
+    - ha-loadbalance
+
 - hosts: 'masters'
 #  gather_facts: False
   become: yes
   roles:
     - k8s-masters
+
+- hosts: 'masters'
+  become: yes
+  roles:
+    - ha-loadbalance
 
 - hosts: 'masters[0]'
   become: yes
