@@ -17,7 +17,7 @@ ansible_become=false
 is_system_update=True
 
 # 默认节点不是公网节点
-public_network_node = False
+public_network_node = True
 
 # 是否开启 flannel
 flannel_enable=True
@@ -53,13 +53,13 @@ helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.6.0
 master1.solarfs.k8s
 
 [masters]
-master1.solarfs.k8s ansible_host=172.26.181.236
-master2.solarfs.k8s ansible_host=172.26.181.237
-master3.solarfs.k8s ansible_host=172.26.181.238
+master1.solarfs.k8s ansible_host=172.26.181.236 advertise_address="x.x.x.x"
+master2.solarfs.k8s ansible_host=172.26.181.237 advertise_address="x.x.x.x"
+master3.solarfs.k8s ansible_host=172.26.181.238 advertise_address="x.x.x.x"
 
 [nodes]
-node1.solarfs.k8s ansible_host=172.26.181.240
-node2.solarfs.k8s ansible_host=x.x.x.x
+node1.solarfs.k8s ansible_host=172.26.181.240 advertise_address="x.x.x.x"
+node2.solarfs.k8s ansible_host=x.x.x.x advertise_address="x.x.x.x"
 
 [new_nodes]
-node3.solarfs.k8s ansible_host=x.x.x.x
+node3.solarfs.k8s ansible_host=x.x.x.x advertise_address="x.x.x.x"

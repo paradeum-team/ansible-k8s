@@ -5,6 +5,7 @@
       - kubeadm-{{k8s_version}}
       - kubectl-{{k8s_version}}
       - bash-completion
+      - tc
   tags: kubeadm
 
 - name: Kubectl completion bash
