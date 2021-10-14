@@ -47,5 +47,35 @@ backend apiserver
     option ssl-hello-chk
     balance     roundrobin
 {% for host in groups['masters'] %}
-        server {{ hostvars[host].inventory_hostname}} {{ hostvars[host].ansible_host }}:{{api_server_src_port}} check
+    server {{ hostvars[host].inventory_hostname}} {{ hostvars[host].ansible_host }}:{{api_server_src_port}} check
 {% endfor %}
+
+{% if ingress_nodeport_http is defined %}
+frontend ingress-nginx-http
+    bind *:80
+    mode tcp
+    option tcplog
+    default_backend ingress-nginx-http
+
+backend ingress-nginx-http
+    mode tcp
+    balance     roundrobin
+{% for host in groups['masters'] %}
+    server {{ hostvars[host].inventory_hostname}} {{ hostvars[host].ansible_host }}:{{ingress_nodeport_http}} check
+{% endfor %}
+{% endif %}
+
+{% if ingress_nodeport_https is defined %}
+frontend ingress-nginx-https
+    bind *:443
+    mode tcp
+    option tcplog
+    default_backend ingress-nginx-https
+
+backend ingress-nginx-https
+    mode tcp
+    balance     roundrobin
+{% for host in groups['masters'] %}
+    server {{ hostvars[host].inventory_hostname}} {{ hostvars[host].ansible_host }}:{{ingress_nodeport_https}} check
+{% endfor %}
+{% endif %}
