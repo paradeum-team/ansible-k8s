@@ -54,6 +54,10 @@ keepalived_image="{{registry_repo}}/osixia/keepalived:2.0.17"
 keepalived_router_id=250
 keepalived_auth_pass=solarfs{{keepalived_router_id}}
 
+# open haproxy ingress tcp proxy
+ingress_nodeport_http=32080
+ingress_nodeport_https=32443
+
 # helm
 helm_binary_md5=e4500993ba21e5e6bdfbc084b4342025
 helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.6.0-linux-amd64.tar.gz
