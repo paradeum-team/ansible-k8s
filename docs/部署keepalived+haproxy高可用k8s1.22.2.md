@@ -98,6 +98,10 @@ keepalived_image="{{registry_repo}}/osixia/keepalived:2.0.17"
 keepalived_router_id=250
 keepalived_auth_pass=solarfs{{keepalived_router_id}}
 
+# open haproxy ingress tcp proxy
+ingress_nodeport_http=32080
+ingress_nodeport_https=32443
+
 # helm
 helm_binary_md5=e4500993ba21e5e6bdfbc084b4342025
 helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.6.0-linux-amd64.tar.gz
@@ -114,6 +118,9 @@ master3.solarfs.k8s ansible_host=172.16.241.26
 logging1.solarfs.k8s ansible_host=172.16.13.77
 logging2.solarfs.k8s ansible_host=172.16.36.25
 logging3.solarfs.k8s ansible_host=172.16.115.194
+
+[new_nodes]
+#node3.solarfs.k8s ansible_host=x.x.x.x
 
 ```
 
@@ -135,3 +142,6 @@ logging3.solarfs.k8s ansible_host=172.16.115.194
 ./install_k8s.sh
 ```
 
+## 安装 ingress-nginx
+
+参考：[使用helm在k8s1.22.2安装ingress-nginx](https://github.com/paradeum-team/operator-env/blob/main/ingress/%E4%BD%BF%E7%94%A8helm%E5%9C%A8k8s1.22.2%E5%AE%89%E8%A3%85ingress-nginx.md)
