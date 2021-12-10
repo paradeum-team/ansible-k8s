@@ -35,4 +35,6 @@
       - vim 
       - iotop
       - dnsmasq
+      - iproute-tc
+      - nfs-utils
   tags: install-base-tools
