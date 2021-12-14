@@ -11,7 +11,7 @@ LOCAL_ENNAME=eth0 ## Need to check
 is_offline=False
 
 # 主机环境实际使用的上游dns server，酌情修改,公司内部实际使用的dns服务ip地址,poc建议为空（公司测试环境不建议配置，因为配置后所有节点就都可以访问外网，>有可能影响线>下包测试的准确性）
-upstream_dns_ips="172.26.164.91"
+upstream_dns_ips="10.8.255.1 10.8.255.2 114.114.114.114"
 
 # 是否安装时间同步服务(chronyd),True表示安装，False表示不安装，默认True，只有已经安装了 ntp 时间同步服务的情况下不安装;
 chronyd_install="True"
@@ -27,10 +27,3 @@ fi
 export CONFIGSERVER_IP="$LOCAL_IP"
 export CONFIGSERVER_PORT="8081"
 
-
-# 高可用部署开关,True为部署高可用版，False为单机版一般无需改动
-if [ `$BASE_DIR/read-ansible-hosts.py -k masters|wc -l` -gt 1 ] ;then
-	HA="True"
-else
-	HA="False"
-fi
