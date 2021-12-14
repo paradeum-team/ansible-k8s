@@ -19,6 +19,7 @@
   when: is_system_update
 - include: installKubeadm.yml
 - include: apiServerDns.yml
+  when: master_vip is defined
 - include: resolv.yml
   when: public_network_node == False
 - include: publicInterface.yml
