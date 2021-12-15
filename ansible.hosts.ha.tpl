@@ -39,7 +39,7 @@ kubeadm_registry_repo="registry.cn-hangzhou.aliyuncs.com"
 coredns_image_repo="{{registry_repo}}/coredns"
 coredns_image_tag="1.8.0"
 flannel_image_repo="quay.io"
-flannel_image_tag="v0.14.0"
+flannel_image_tag="v0.15.1"
 
 # subnet
 service_subnet=10.96.0.0/12
