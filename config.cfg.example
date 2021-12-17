@@ -16,7 +16,7 @@ upstream_dns_ips="10.8.255.1 10.8.255.2 114.114.114.114"
 # 是否安装时间同步服务(chronyd),True表示安装，False表示不安装，默认True，只有已经安装了 ntp 时间同步服务的情况下不安装;
 chronyd_install="True"
 # chronyd_install=True 时才生效,定义外部 ntp_server, ntp.cloud.aliyuncs.com 为阿里云内部 ntp 同步 server,  非阿里云主机访问可以改为 ntp.aliyun.com, 或自定义的 ntp server
-ntp_server="ntp.cloud.aliyuncs.com"
+ntp_server="ntp.aliyun.com"
 
 export LOCAL_IP=`ip a show $LOCAL_ENNAME|awk '/inet.*brd.*'$LOCAL_ENNAME'/{print $2}'|awk -F "/" '{print $1}'`  # 无需改动
 if [ -z "$LOCAL_IP" ];then

@@ -13,7 +13,7 @@ data:
            ttl 30
         }
         prometheus :9153
-        forward . {{master_vip}}:53 {
+        forward . {{upstream_dns_ips}} {
            max_concurrent 1000
         }
         cache 30
