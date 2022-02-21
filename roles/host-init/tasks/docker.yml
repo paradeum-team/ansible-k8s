@@ -1,10 +1,13 @@
+# centos uninstall docker
 - name: uninstall podman
   yum:
     name:
       - runc
     state: absent 
     autoremove: true
+  when: OS_ID == "centos"
 
+# centos install docker
 - name: Install docker ce
   yum:
     name: 
@@ -15,6 +18,32 @@
       - docker-ce
       - docker-ce-cli
   tags: docker
+  when: OS_ID == "centos"
+
+# ubuntu uninstall docker
+- name: uninstall docker
+  apt:
+    name:
+      - docker 
+      - docker-engine 
+      - docker.io 
+      - containerd 
+      - runc
+    state: absent
+    autoremove: true
+  when: OS_ID == "ubuntu"
+
+# ubuntu install docker
+- name: Install docker ce
+  apt:
+    name:
+      - lvm2
+      - containerd.io
+      - docker-ce
+      - docker-ce-cli
+    update_cache: yes
+  tags: docker
+  when: OS_ID == "ubuntu"
 
 - name: Create /etc/docker directory 
   file:

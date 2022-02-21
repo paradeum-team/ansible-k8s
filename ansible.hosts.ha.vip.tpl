@@ -62,6 +62,9 @@ ingress_nodeport_https=32443
 helm_binary_md5=e4500993ba21e5e6bdfbc084b4342025
 helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.6.0-linux-amd64.tar.gz
 
+# os id, centos|ubuntu
+OS_ID="centos"
+
 [install]
 master1.solarfs.k8s
 

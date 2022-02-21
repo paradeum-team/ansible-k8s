@@ -1,0 +1,36 @@
+- name: clean repo cache
+  command: apt clean && apt update
+  ignore_errors: yes
+  tags: aptrepo
+
+- name: Install base tools
+  apt:
+    name: 
+      - wget
+      - net-tools
+      - dnsutils
+      - bash-completion
+      - telnet
+      - curl
+      - lrzsz
+      - jq
+      - linux-tools-common
+      - strace 
+      - vim 
+      - iotop
+      - dnsmasq
+      - iproute2
+      - nfs-common
+      - python3-selinux
+      - policycoreutils
+      - apt-transport-https
+      - ca-certificates
+      - gnupg
+      - lsb-release
+  tags: install-base-tools
+
+- name: Install kubernetes repo
+  shell: curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - && echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+- name: Install docker repo
+  shell: echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null

@@ -1,3 +1,9 @@
 - name: yum update
   command: yum update -y
   tags: yum-update
+  when: OS_ID == "centos"
+
+- name: apt upgrade
+  apt:
+    only_upgrade: yes
+  when: OS_ID == "ubuntu"

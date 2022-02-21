@@ -50,15 +50,18 @@ pod_subnet=10.128.0.0/16
 helm_binary_md5=24b16800f8c7f44b5dd128e3355ecf1b
 helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.6.3-linux-amd64.tar.gz
 
+# os id, centos|ubuntu
+OS_ID="centos"
+
 [install]
-master1.kuggatest.k8s
+master1.solarfs.k8s
 
 [masters]
-master1.kuggatest.k8s ansible_host=172.16.195.211
+master1.solarfs.k8s ansible_host=172.16.195.211
 
 [nodes]
-infra1.kuggatest.k8s ansible_host=172.16.3.85
-node1.kuggatest.k8s ansible_host=172.16.128.250
-node2.kuggatest.k8s ansible_host=172.16.214.182
+infra1.solarfs.k8s ansible_host=172.16.3.85
+node1.solarfs.k8s ansible_host=172.16.128.250
+node2.solarfs.k8s ansible_host=172.16.214.182
 
 [new_nodes]

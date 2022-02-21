@@ -7,6 +7,18 @@
       - conntrack
       - libseccomp
   tags: ipvs
+  when: OS_ID == "centos"
+
+- name: Install ipvsadm
+  apt:
+    name:
+      - ipvsadm
+      - ipset
+      - sysstat
+      - conntrack
+      - libseccomp-dev
+  tags: ipvs
+  when: OS_ID == "ubuntu"
 
 - name: Modprode Kernel Module for IPVS
   modprobe:
