@@ -26,8 +26,6 @@
   when: master_vip is defined
 - include: resolv.yml
   when: public_network_node == False and OS_ID == "centos"
-- include: resolvUbuntu.yml
-  when: public_network_node == False and OS_ID == "ubuntu"
 - include: publicInterface.yml
   when: public_network_node == True
 - include: reboot.yml
