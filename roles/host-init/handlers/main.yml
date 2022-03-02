@@ -19,3 +19,7 @@
 - name: restart network
   service: name=network state=restarted
   become: yes
+
+- name: restart resolved
+  service: name=resolved state=restarted
+  become: yes

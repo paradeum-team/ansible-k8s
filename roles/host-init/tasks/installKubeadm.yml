@@ -6,6 +6,18 @@
       - kubectl-{{k8s_version}}
       - bash-completion
   tags: kubeadm
+  when: OS_ID == "centos"
+
+- name: Install kubeadm kubelet kubectl
+  apt:
+    name:
+      - kubelet={{k8s_version}}-00
+      - kubeadm={{k8s_version}}-00
+      - kubectl={{k8s_version}}-00
+      - bash-completion
+    update_cache: yes
+  tags: kubeadm
+  when: OS_ID == "ubuntu"
 
 - name: Kubectl completion bash
   shell: "kubectl completion bash >/etc/bash_completion.d/kubectl"
@@ -15,6 +27,7 @@
   template: src=kubelet.j2 dest=/etc/sysconfig/kubelet  owner=root group=root mode=644 backup=yes
   notify: restart kubelet
   tags: kubeadm
+  when: OS_ID == "centos"
 
 - name: Enable service kubelet and start
   service:
