@@ -62,6 +62,6 @@ master1.solarfs.k8s ansible_host=172.16.195.211
 [nodes]
 infra1.solarfs.k8s ansible_host=172.16.3.85
 node1.solarfs.k8s ansible_host=172.16.128.250
-node2.solarfs.k8s ansible_host=172.16.214.182
 
 [new_nodes]
+#node2.solarfs.k8s ansible_host=172.16.214.182 OS_ID="ubuntu"
