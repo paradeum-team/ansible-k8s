@@ -10,6 +10,8 @@
   when: OS_ID == "ubuntu"
 - include: selinux.yml
   when: OS_ID == "centos"
+- include: update.yml
+  when: is_system_update
 - include: ulimit.yml
 - include: ipvs.yml
 - include: sysctl.yml
@@ -19,8 +21,6 @@
   when: chronyd_install
 - include: hostname.yml
 - include: docker.yml
-- include: update.yml
-  when: is_system_update
 - include: installKubeadm.yml
 - include: apiServerDns.yml
   when: master_vip is defined
