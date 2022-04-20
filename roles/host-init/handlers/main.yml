@@ -17,7 +17,7 @@
   become: yes
 
 - name: restart network
-  service: name=network state=restarted
+  service: name=NetworkManager state=restarted
   become: yes
 
 - name: restart resolved
