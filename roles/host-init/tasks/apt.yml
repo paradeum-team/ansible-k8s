@@ -44,6 +44,7 @@
       - ca-certificates
       - gnupg
       - lsb-release
+      - network-manager
     update_cache: yes
   tags: install-base-tools
 
