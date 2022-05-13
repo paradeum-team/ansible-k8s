@@ -59,8 +59,8 @@ ingress_nodeport_http=32080
 ingress_nodeport_https=32443
 
 # helm
-helm_binary_md5=e4500993ba21e5e6bdfbc084b4342025
-helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.6.0-linux-amd64.tar.gz
+helm_binary_md5=77b16cb0ebc6266ac98fc9f2285e361f
+helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.7.1-linux-amd64.tar.gz
 
 # os id, centos|ubuntu
 OS_ID="centos"

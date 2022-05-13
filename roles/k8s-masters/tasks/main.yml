@@ -5,6 +5,7 @@
 - include: apiServerDns.yml
 - include: kubeadmInit.yml
   when: hostvars[ groups['masters'][0] ].inventory_hostname == inventory_hostname
+- include: kubelet.yml
 - include: joinControlPlane.yml
 - include: kube-flannel.yml
   when: hostvars[ groups['masters'][0] ].inventory_hostname == inventory_hostname and flannel_enable == True

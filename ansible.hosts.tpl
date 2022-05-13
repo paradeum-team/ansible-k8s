@@ -47,8 +47,8 @@ service_subnet=10.96.0.0/12
 pod_subnet=10.128.0.0/16
 
 # helm
-helm_binary_md5=24b16800f8c7f44b5dd128e3355ecf1b
-helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.6.3-linux-amd64.tar.gz
+helm_binary_md5=77b16cb0ebc6266ac98fc9f2285e361f
+helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.7.1-linux-amd64.tar.gz
 
 # os id, centos|ubuntu
 OS_ID="centos"
