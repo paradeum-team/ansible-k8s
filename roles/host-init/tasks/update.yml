@@ -1,5 +1,5 @@
 - name: yum update
-  command: yum update -y
+  command: yum update -y --exclude=kubelet --exclude=kubeadm --exclude=docker --exclude=runc
   tags: yum-update
   when: OS_ID == "centos"
 

@@ -7,3 +7,8 @@
 
 - name: restart coredns
   shell: "kubectl rollout restart deploy coredns -n kube-system"
+  become: yes
+
+- name: restart kubelet
+  service: name=kubelet state=restarted
+  become: yes
