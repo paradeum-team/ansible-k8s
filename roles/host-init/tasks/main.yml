@@ -5,7 +5,7 @@
 # CentOS #
 # ########
 - include: yum.yml
-  when: OS_ID == "centos"
+  when: OS_ID == "centos" or OS_ID == "rocky"
 - include: apt.yml
   when: OS_ID == "ubuntu"
 - include: selinux.yml
