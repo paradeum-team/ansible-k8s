@@ -2,7 +2,8 @@
 - hosts: 'new_nodes'
   become: yes
   roles:
-    - host-init
+    - role: host-init
+      when: isHostInit == "true"
 
 - hosts: 'masters[0]'
   become: yes

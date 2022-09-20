@@ -6,4 +6,6 @@ cd $BASE_DIR
 
 . ./config.cfg
 
-ansible-playbook playbooks/k8s/node.yml 
+isHostInit=${1:-true}
+
+ansible-playbook playbooks/k8s/node.yml --extra-vars "isHostInit=$isHostInit"
