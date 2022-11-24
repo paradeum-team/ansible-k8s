@@ -75,7 +75,7 @@ registry_domain=registry.hisun.netwarps.com
 registry_repo="{{registry_domain}}"
 kubeadm_registry_repo="registry.hisun.netwarps.com"
 coredns_image_repo="{{registry_repo}}/coredns"
-coredns_image_tag="1.8.6"
+coredns_image_tag="1.8.4"
 flannel_image_repo="{{registry_repo}}"
 flannel_image_tag="v0.14.0"
 

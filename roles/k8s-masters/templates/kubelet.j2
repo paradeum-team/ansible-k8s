@@ -1,1 +1,5 @@
+{% if advertise_address is defined %}
 KUBELET_EXTRA_ARGS="--node-ip {{ advertise_address }}"
+{% else %}
+KUBELET_EXTRA_ARGS=""
+{% endif %}

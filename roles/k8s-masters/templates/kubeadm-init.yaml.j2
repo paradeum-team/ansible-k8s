@@ -22,13 +22,18 @@ nodeRegistration:
 ---
 apiServer:
   timeoutForControlPlane: 4m0s
+  extraArgs:
+    authorization-mode: Node,RBAC
+    enable-admission-plugins: NodeRestriction,PodNodeSelector,PodTolerationRestriction
 apiVersion: kubeadm.k8s.io/v1beta2
 certificatesDir: /etc/kubernetes/pki
 clusterName: kubernetes
 {% if api_server_domain is defined %}
 controlPlaneEndpoint: {{api_server_domain}}:{{api_server_port}}
 {% endif %}
-controllerManager: {}
+controllerManager:
+  extraArgs:
+    bind-address: 0.0.0.0
 dns:
   type: CoreDNS
 {% if coredns_image_repo is defined %}
@@ -51,7 +56,9 @@ networking:
   dnsDomain: cluster.local
   serviceSubnet: {{service_subnet}}
   podSubnet:  {{pod_subnet}}
-scheduler: {}
+scheduler:
+  extraArgs:
+    bind-address: 0.0.0.0
 ---
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration

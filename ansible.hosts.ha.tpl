@@ -31,15 +31,15 @@ api_server_domain="api-server.{{node_domain}}"
 api_server_port="6443"
 
 # k8s 版本
-k8s_version=1.21.4
+k8s_version=1.22.16
 # 定义外部镜像仓库
 registry_domain=docker.io
 registry_repo="{{registry_domain}}"
 kubeadm_registry_repo="registry.cn-hangzhou.aliyuncs.com"
 coredns_image_repo="{{registry_repo}}/coredns"
-coredns_image_tag="1.8.0"
+coredns_image_tag="1.8.4"
 flannel_image_repo="quay.io"
-flannel_image_tag="v0.15.1"
+flannel_image_tag="v0.20.1"
 
 # subnet
 service_subnet=10.96.0.0/12
