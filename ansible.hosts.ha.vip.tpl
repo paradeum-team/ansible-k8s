@@ -58,9 +58,11 @@ keepalived_auth_pass=solarfs{{keepalived_router_id}}
 ingress_nodeport_http=32080
 ingress_nodeport_https=32443
 
+
 # helm
-helm_binary_md5=77b16cb0ebc6266ac98fc9f2285e361f
-helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.7.1-linux-amd64.tar.gz
+helm_binary_checksum=31960ff2f76a7379d9bac526ddf889fb79241191f1dbe2a24f7864ddcb3f6560
+helm_binary_url=https://pnode.solarfs.io/dn/file/d5b5fd63f068c7a7e950afc840620baf/helm-v3.9.4-linux-amd64.tar.gz
+#helm_binary_url=https://get.helm.sh/helm-v3.9.4-linux-amd64.tar.gz
 
 # os id, centos|ubuntu
 OS_ID="centos"

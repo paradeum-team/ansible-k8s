@@ -104,8 +104,9 @@ ingress_nodeport_http=32080
 ingress_nodeport_https=32443
 
 # helm
-helm_binary_md5=e4500993ba21e5e6bdfbc084b4342025
-helm_binary_url=https://pnode.solarfs.io/dn/file/{{helm_binary_md5}}/helm-v3.6.0-linux-amd64.tar.gz
+helm_binary_checksum=31960ff2f76a7379d9bac526ddf889fb79241191f1dbe2a24f7864ddcb3f6560
+helm_binary_url=https://pnode.solarfs.io/dn/file/d5b5fd63f068c7a7e950afc840620baf/helm-v3.9.4-linux-amd64.tar.gz
+#helm_binary_url=https://get.helm.sh/helm-v3.9.4-linux-amd64.tar.gz
 
 [install]
 master1.solarfs.k8s

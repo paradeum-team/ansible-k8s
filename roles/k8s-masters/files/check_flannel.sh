@@ -5,8 +5,8 @@ desiredNumberScheduled=1
 numberReady=0
 
 get_status(){
-	desiredNumberScheduled=` kubectl get ds kube-flannel-ds -n kube-system -o jsonpath='{.status.desiredNumberScheduled}'`
-	numberReady=`kubectl get ds kube-flannel-ds -n kube-system -o jsonpath='{.status.numberReady}'`
+	desiredNumberScheduled=` kubectl get ds kube-flannel-ds -n kube-flannel -o jsonpath='{.status.desiredNumberScheduled}'`
+	numberReady=`kubectl get ds kube-flannel-ds -n kube-flannel -o jsonpath='{.status.numberReady}'`
 }
 
 i=1
