@@ -6,28 +6,29 @@
   tags: helm
 
 - name: create tmp helm directory
-  file: path=/tmp/helm.{{helm_binary_md5}} state=directory
+  file: path=/tmp/helm.{{helm_binary_checksum}} state=directory
   when: check_helm_ret.rc == 2
   tags: helm
 
 - name: download helm 
   get_url:
     url: "{{helm_binary_url}}"
-    dest: /tmp/helm.{{helm_binary_md5}}/helm.tar.gz
-    checksum: md5:{{helm_binary_md5}}
+    dest: /tmp/helm.{{helm_binary_checksum}}/helm.tar.gz
+    checksum: sha256:{{helm_binary_checksum}}
+    timeout: 60
   when: check_helm_ret.rc == 2
   tags: helm
 
 - name: Unarchive helm
   unarchive:
-    src: /tmp/helm.{{helm_binary_md5}}/helm.tar.gz
-    dest: /tmp/helm.{{helm_binary_md5}}/
+    src: /tmp/helm.{{helm_binary_checksum}}/helm.tar.gz
+    dest: /tmp/helm.{{helm_binary_checksum}}/
     remote_src: yes
   when: check_helm_ret.rc == 2
   tags: helm
 
 - name: install helm
-  shell: mv /tmp/helm.{{helm_binary_md5}}/linux-amd64/helm /usr/local/bin/helm; rm -rf /tmp/helm.{{helm_binary_md5}}
+  shell: mv /tmp/helm.{{helm_binary_checksum}}/linux-amd64/helm /usr/local/bin/helm; rm -rf /tmp/helm.{{helm_binary_checksum}}
   when: check_helm_ret.rc == 2
   tags: helm
 

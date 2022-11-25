@@ -1,13 +1,12 @@
 ---
 - name: check kube flannel is installed
-  command: kubectl get ds kube-flannel-ds -n kube-system
+  command: kubectl get ds kube-flannel-ds -n kube-flannel
   register: check_flannel_ret
   ignore_errors: True
   tags: kube-flannel
 
 - name: create kube-flannel.yml
   template: src=kube-flannel.yml.j2 dest=$HOME/k8s_config/kube-flannel.yml  owner=root group=root mode=644
-  tags: kubeadm_init
   when: check_flannel_ret.rc == 1
   tags: kube-flannel
 
