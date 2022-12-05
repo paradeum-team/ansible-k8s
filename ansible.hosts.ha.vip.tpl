@@ -38,6 +38,9 @@ flannel_image_tag="v0.20.1"
 service_subnet=10.96.0.0/12
 pod_subnet=10.128.0.0/16
 
+# node local dns
+local_dns_address="169.254.20.10"
+
 # api server 
 master_vip="172.16.92.250"
 master_vip_advertise_address="172.16.92.250"

@@ -1,4 +1,4 @@
 ---
 - name: config /etc/sysconfig/kubelet
   template: src=kubelet.j2 dest=/etc/sysconfig/kubelet mode=0644
-  tags: join-node
+  tags: join-node,kubelet-config

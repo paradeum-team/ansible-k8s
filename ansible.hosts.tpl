@@ -45,6 +45,8 @@ flannel_image_tag="v0.20.1"
 # subnet
 service_subnet=10.96.0.0/12
 pod_subnet=10.128.0.0/16
+# cluster dns, default docker0 ip
+local_dns_address="172.17.0.1"
 
 # helm
 helm_binary_checksum=31960ff2f76a7379d9bac526ddf889fb79241191f1dbe2a24f7864ddcb3f6560

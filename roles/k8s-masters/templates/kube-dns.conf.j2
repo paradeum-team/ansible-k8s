@@ -7,6 +7,6 @@ dns-forward-max=10000
 cache-size=10000
 bind-dynamic
 min-port=1024
-interface={{LOCAL_ENNAME}}
-#except-interface=lo
+interface={{LOCAL_ENNAME}},docker0
+except-interface=lo,nodelocaldns,kube-ipvs0,flannel.1
 # End of config
