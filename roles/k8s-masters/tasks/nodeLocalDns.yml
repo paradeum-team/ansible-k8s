@@ -1,0 +1,20 @@
+---
+- name: check node local dns  is installed
+  command: kubectl get ds node-local-dns -n kube-system
+  register: check_nodelocaldns_ret
+  ignore_errors: True
+  tags: nodelocaldns
+
+- name: create nodelocaldns.yml
+  template: src=nodelocaldns.yml.j2 dest=$HOME/k8s_config/nodelocaldns.yml  owner=root group=root mode=644
+  when: check_nodelocaldns_ret.rc == 1
+  tags: nodelocaldns
+
+- name: install nodelocaldns.yml
+  command: kubectl apply -f $HOME/k8s_config/nodelocaldns.yml
+  when: check_nodelocaldns_ret.rc == 1
+  tags: nodelocaldns
+
+- name: check node local dns status
+  script: check-nodelocaldns.sh
+  tags: nodelocaldns

@@ -2,11 +2,11 @@
   stat:
     path: /etc/kubernetes/kubelet.conf
   register: check_kubelet_conf
-  tags: join-node
+  tags: join-node,kubelet-config
 
 - name: config /etc/sysconfig/kubelet
   template: src=kubelet.j2 dest=/etc/sysconfig/kubelet mode=0644
-  tags: join-node
+  tags: join-node,kubelet-config
 
 - name: join k8s nodes
   command: "{{hostvars[ groups['masters'][0] ].join_command.stdout}}"
