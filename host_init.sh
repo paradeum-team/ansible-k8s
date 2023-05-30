@@ -16,4 +16,4 @@ export ANSIBLE_SCP_IF_SSH=y
 
 ./build_ansible_var.sh
 
-ansible-playbook playbooks/host-init/host-init.yml --extra-vars "exec_hosts=$INIT_HOSTS $@"
+ansible-playbook playbooks/host-init/host-init.yml --extra-vars exec_hosts=$INIT_HOSTS $@
